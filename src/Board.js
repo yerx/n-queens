@@ -81,7 +81,8 @@
     hasRowConflictAt: function (rowIndex) {
       //  iterate through the rowIndex
       //  if two items on that row then there is a row conflict
-      let matrix = this.rows();
+      //console.log(this.get('n'));//returns amount of rows and columns
+      let matrix = this.rows().slice();
       let currentRow = matrix[rowIndex];
       let count = 0;
       for (var i = 0; i < currentRow.length; i++) {
@@ -97,6 +98,12 @@
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function () {
+      let size = this.get('n');
+      for (let i = 0; i < size; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -107,30 +114,36 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function (colIndex) {
-      let matrix = this.rows();
+      let matrix = this.rows().slice();
       let currentCol = [];
       let count = 0;
+
       // iterate through matrix
-      for (var i = 0; i < matrix.length; i++) {
-      // Build the column array
+      for (let i = 0; i < matrix.length; i++) {
+        // Build the column array
         currentCol.push(matrix[i][colIndex]);
       }
       for (var i = 0; i < currentCol.length; i++) {
         if (currentCol[i] !== 0) {
           count++;
+          //  if an item on that row has an index shared with an item on another row then there is a conflict
           if (count > 1) {
             return true;
           }
         }
       }
       return false; // fixme
-
-      //  if an item on that row has an index shared with an item on another row then there is a conflict
-      return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function () {
+      let size = this.get('n');
+      // let matrix = this.rows();
+      for (var i = 0; i < size; i++) {
+        if (this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -141,11 +154,35 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function (majorDiagonalColumnIndexAtFirstRow) {
+      let ci = majorDiagonalColumnIndexAtFirstRow;
+
+      // create matrix variable
+      let matrix = this.rows().slice();
+      let max = this.get('n');
+      let count = 0;
+
+      // iterate through the row
+      for (var ri = 0; ri < max && ci < max; ri++) { // ri = 0
+        // if the value at index is not 0 then increase count
+        // if that element is greater than 0 // [0, 0, 1]
+        if (matrix[ri][ci] === 1) { // [0, 0, 0, 0]
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+        ci++;
+      }
       return false; // fixme
     },
 
-    // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function () {
+      let max = this.get('n');
+      for (var ci = -max - 2; ci < max; ci++) { // ci = start at inverse max - 2
+        if (this.hasMajorDiagonalConflictAt(ci)) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -156,11 +193,37 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) {
+      let ci = minorDiagonalColumnIndexAtFirstRow;
+      let matrix = this.rows().slice();
+      let max = this.get('n');
+      let count = 0;
+
+      // for (var i = 0; i < max; i++) {
+      //   matrix[i].concat([0, 0]);
+      // }
+
+      for (var ri = 0; ri < max, ci >= 0; ri++) {
+        if (matrix[ri][ci] === 1) {
+          count++;
+          if (count > 1) {
+            return true;
+          }
+        }
+        ci--;
+      }
+
       return false; // fixme
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function () {
+      let max = this.get('n');
+
+      for (var ci = 1; ci < max + max - 1; ci++) {
+        if (this.minorDiagonalColumnIndexAtFirstRow(ci)) {
+          return true;
+        }
+      }
       return false; // fixme
     }
 
