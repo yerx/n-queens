@@ -198,12 +198,12 @@
       let max = this.get('n');
       let count = 0;
 
-      // for (var i = 0; i < max; i++) {
-      //   matrix[i].concat([0, 0]);
-      // }
 
-      for (var ri = 0; ri < max, ci >= 0; ri++) {
-        if (matrix[ri][ci] === 1) {
+      // old value was
+
+      for (var ri = 0; ri < max && ci >= 0; ri++) {
+        let value = matrix[ri][ci];
+        if (value === 1) {
           count++;
           if (count > 1) {
             return true;
@@ -219,8 +219,10 @@
     hasAnyMinorDiagonalConflicts: function () {
       let max = this.get('n');
 
-      for (var ci = 1; ci < max + max - 1; ci++) {
-        if (this.minorDiagonalColumnIndexAtFirstRow(ci)) {
+      for (var ci = 1; ci < (max + max - 1); ci++) {
+        // old value was
+        if (this.hasMinorDiagonalConflictAt(ci)) {
+
           return true;
         }
       }

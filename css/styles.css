@@ -6,12 +6,20 @@
 
 .positive {
   background-color: lightgrey;
+  background-image: url('https://www.bellacor.com/media.bellacor.com/images/1500/23880135361.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 .negative {
   background-color: grey;
+  background-image: url('https://i.pinimg.com/236x/dd/a5/1b/dda51b19e2e492c44ac34d956e3569cb--black-wood-texture-color-patterns.jpg');
+  background-position: center;
+  background-size: cover;
+
 }
 
 .inConflict{
   background-color: red;
+  background-image: url('https://us.123rf.com/450wm/xsexes/xsexes1805/xsexes180500038/102074391-red-wooden-texture-vector-seamless-pattern-template-for-illustrations-posters-backgrounds-prints-wal.jpg?ver=6');
 }
