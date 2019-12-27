@@ -16,22 +16,34 @@
 
 
 window.findNRooksSolution = function (n, matrix) {
-  var solution = undefined;
-  board = new Board({ 'n': n });
-  matrix = board.rows();
+  var solution;
+  // start a new board
+  var board = new Board({ 'n': n }) || board;
 
-  if (!matrix[0].includes(1)) {
-    var ci = 0;
-    for (var ri = 0; ri < n; ri++) {
-      board.togglePiece(ri, ci);// = 1;
-      ci++;
+  var findRookSolution = function(rowIndex) {
+    // if row count is equal to n count
+    if (rowIndex === n) {
+      return solution = _.map(board.rows(), function(row) {
+        return row.slice();
+      });
     }
-  }
-  solution = matrix;
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return matrix;
 
+    // iterate through the row
+    for (var ci = 0; ci < n; ci++) {
+      // toggle piece
+      board.togglePiece(rowIndex, ci);
+      // check for column conflict
+      if ( !board.hasAnyRooksConflicts() ) {
+        // findRookSolution(row + 1)
+        findRookSolution(rowIndex + 1);
+      }
+      // untoggle piece
+      board.togglePiece(rowIndex, ci);
+    }
 
+  };
+
+  findRookSolution(0);
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
@@ -74,13 +86,18 @@ window.countNRooksSolutions = function (n) {
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function (n) {
 
+  var solution;
   // start a new board
-  var board = new Board({ 'n': n });
+  var board = new Board({ 'n': n }) || board;
+
+  if (n === 2 || n === 3) {
+    return board.rows();
+  }
 
   var findQueenSolution = function(rowIndex) {
     // if row count is equal to n count
     if (rowIndex === n) {
-      return _.map(board.rows(), function(row) {
+      return solution = _.map(board.rows(), function(row) {
         return row.slice();
       });
     }
@@ -92,16 +109,15 @@ window.findNQueensSolution = function (n) {
       // check for column conflict
       if ( !board.hasAnyQueensConflicts() ) {
         // findRookSolution(row + 1)
-        findQueenSolution(rowIndex);
+        findQueenSolution(rowIndex + 1);
       }
       // untoggle piece
       board.togglePiece(rowIndex, ci);
     }
 
   };
-  var solution = findQueenSolution(0);
 
-  solution = solution || board.rows();
+  findQueenSolution(0);
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   // if there is no solution, return board.rows();

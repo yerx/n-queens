@@ -78,6 +78,7 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
+    // time complexity is O(n)
     hasRowConflictAt: function (rowIndex) {
 
       let currentRow = this.get(rowIndex);
@@ -92,6 +93,7 @@
     },
 
     // test if any rows on this board contain conflicts
+    // time complexity is O(n)
     hasAnyRowConflicts: function () {
       let size = this.get('n');
 
@@ -109,6 +111,7 @@
     // --------------------------------------------------------------
     //
     // test if a specific column on this board contains a conflict
+    // time complexity is O(n)
     hasColConflictAt: function (colIndex) {
 
       let size = this.get('n');
@@ -126,6 +129,7 @@
     },
 
     // test if any columns on this board contain conflicts
+    // time complexity is O(n)
     hasAnyColConflicts: function () {
       let size = this.get('n');
 
@@ -143,6 +147,7 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
+    // time complexity is O(n)
     hasMajorDiagonalConflictAt: function (majorDiagonalColumnIndexAtFirstRow) {
 
       let ci = majorDiagonalColumnIndexAtFirstRow;
@@ -162,6 +167,7 @@
       return count > 1;
     },
 
+    // time complexity is O(n)
     hasAnyMajorDiagonalConflicts: function () {
       let size = this.get('n');
 
@@ -179,6 +185,7 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
+    // time complexity is O(n)
     hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) {
       let ci = minorDiagonalColumnIndexAtFirstRow;
       let ri = 0;
@@ -196,6 +203,7 @@
     },
 
     // test if any minor diagonals on this board contain conflicts
+    // time complexity is O(n)
     hasAnyMinorDiagonalConflicts: function () {
       let size = this.get('n');
 
