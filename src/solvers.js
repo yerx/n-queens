@@ -15,7 +15,7 @@
 
 
 
-window.findNRooksSolution = function (n, matrix) {
+window.findNRooksSolution = function (n) {
   var solution;
   // start a new board
   var board = new Board({ 'n': n }) || board;
